@@ -1,0 +1,34 @@
+.green-bk-color {
+    background-color:#22c55eac !important;
+    color: #ffff !important;
+}
+
+.green-bk-color:hover {
+    color: #ffff !important;
+}
+
+.green-fg-color {
+    color: #86efac !important;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.object-center {
+    object-position: center;
+}
+
+.round-border {
+    border-radius: 50% !important;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+    transition: ease-in;
+}
+
