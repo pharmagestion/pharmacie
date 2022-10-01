@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f$*tsub^a-rb=$gy!f!gu0y#a3r!db-n51z_l$ioyv=yr@t!ro
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,13 +46,13 @@ INSTALLED_APPS = [
 
     # personal apps
 
-    'client',
+    'compte',
+    'partenaire',
     'vente',
     'achat',
     'stock',
     'medicament',
     'comptabilite',
-    'employe',
     'fournisseur',
     'rapport',
     'configuration'
@@ -111,20 +111,23 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
+
+AUTH_USER_MODEL = 'compte.Account'
+LOGIN_URL = 'login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -157,11 +160,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Compressor config
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-     
      # Other finders
      'compressor.finders.CompressorFinder',
+
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 COMPRESS_ENABLED = not DEBUG

@@ -1,0 +1,130 @@
+{% extends "base.html" %} 
+{% load compress %}
+{% load static %}
+
+{% block css %} 
+    {% compress css %}
+            <link
+            rel="stylesheet"
+            href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}" 
+        />
+        <!-- Font Awesome Icons -->
+        <link
+            rel="stylesheet"
+            href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+        />
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}" />
+
+        <!-- custom styles -->
+        <link rel="stylesheet" href="{% static 'custom.css' %}" />
+    {% endcompress  %}
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" id="target">
+    <div class="row" style="display: flex; justify-content: center;">
+      <div class="col-md-8 mt-3">
+        <form action="{% url 'medicaments'  %}"
+            method="post"
+            enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+           
+            <div class="card card-primary">
+              <div class="card-body">
+                <div class="form-group float-right">
+                  <div class="d-none">
+                    {{ form.picture }}
+                  </div>
+                  {% if med.picture %}
+                    <div id="upload-wrapper">
+                        <button type="button" class="invisible upload-btn btn green-bk-color position-absolute" style="top:3em; right:2.1em;">upload</button>
+                        <img id="profile-image" class="image d-block object-cover object-center"  
+                          width="100" height="100" src="{{ med.picture.url }}" alt="Image"> 
+                    </div>
+                {% else %}
+                    <button type="button" class="invisible upload-btn btn green-bk-color position-absolute" style="top:3em; right:2.1em;">upload</button>
+                    <img id="profile-image" class="profile-image d-block object-cover object-center image"  
+                    width="100" height="100" src="https://avatars.dicebear.com/api/initials/{{user.username}}.svg" alt="Image"> 
+                {% endif %}
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="row">
+                      <div class="col-md-6" >
+                        <div class="form-group">
+                          <input hidden name="pk" type="text" class="form-control" value="{{ med.id }}">
+                          {{ form.name.label }}
+                          {{ form.name }}
+                          <span class="text-danger">{{ form.name.errors }}</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.lot_number.label }}
+                            {{ form.lot_number }}
+                            <span class="text-danger">{{ form.lot_number.errors }}</span>
+                        </div>
+                        
+                        <div class="form-group">
+                          {{ form.price.label }}
+                          {{ form.price }}
+                          <span class="text-danger">{{ form.price.errors }}</span>
+                        </div>
+                        <div class="form-group">
+                          {{ form.weight.label }}
+                          {{ form.weight }}
+                          <span class="text-danger">{{ form.weight.errors }}</span>
+                        </div>
+                      
+                        <div class="form-group">
+                          {{ form.category.label }}
+                          {{ form.category }}
+                          <span class="text-danger">{{ form.category.errors }}</span>
+                        </div>
+                      </div>
+                      <div class="col-md-6"> 
+                          <div class="form-group">
+                              {{ form.manu_date.label }}
+                              {{ form.manu_date }}
+                              <span class="text-danger">{{ form.manu_date.errors }}</span>
+                            </div>
+                            <div class="form-group">
+                              {{ form.expr_date.label }}
+                              {{ form.expr_date }}
+                              <span class="text-danger">{{ form.expr_date.errors }}</span>
+                            </div>
+              
+                            <div class="form-group">
+                              {{ form.description.label }}
+                              {{ form.description }}
+                              <span class="text-danger">{{ form.description.errors }}</span>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn green-bk-color float-right"> {{ _('Submit') }}</button>
+              </div>
+            </div>
+        </form>
+          <!-- /.card -->
+      </div>
+     
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+  {% compress js %}
+      <!-- REQUIRED SCRIPTS -->
+      <script src="{% static 'htmx.min.js' %}"></script>
+      <!-- jQuery -->
+      <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+      <!-- Bootstrap 4 -->
+      <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <!-- AdminLTE App -->
+      <script src="{% static 'js/adminlte.min.js' %}"></script>
+  {% endcompress %}
+{% endblock  %}

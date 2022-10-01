@@ -11,6 +11,23 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>
       </li>
+      
+      
+      <!-- {% if not user.is_authenticated %}
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{% url 'login' %}" class="nav-link">{{ _('Log in') }} </a>
+        </li>
+
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{% url 'signup' %}" class="nav-link">{{ _('Sign up') }}</a>
+        </li>
+      {% else %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'logout' %}" class="nav-link">{{ _('Log out') }} </a>
+      </li>
+      {% endif %} -->
+        
+
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
@@ -82,7 +99,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{% static 'img/user3-128x128.jpg' %}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester

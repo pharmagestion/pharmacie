@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+{% load compress %}
+
+{% block css %} 
+    {% compress css %}
+            <link
+            rel="stylesheet"
+            href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}" 
+        />
+        <!-- Font Awesome Icons -->
+        <link
+            rel="stylesheet"
+            href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+        />
+
+        <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+        
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}" />
+
+        <!-- custom styles -->
+        <link rel="stylesheet" href="{% static 'custom.css' %}" />
+    {% endcompress  %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <a class="btn green-bk-color" href="{% url 'signup' %}">{{ _('Create a user') }}</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th> {{ _('First Name') }} </th>
+                    <th>{{ _('Last Name') }}</th>
+                    <th>{{ _('username') }}</th>
+                    <th>{{ _('email') }}</th>
+                    <th>{{ _('user_type') }}</th>
+                    <th>{{ _('phone Number') }}</th>
+                    <th>{{ _('action') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for pro in queryset %}
+                        <tr>
+                            <td>{{ pro.first_name|default_if_none:'N/A' }}</td>
+                            <td>{{ pro.last_name|default_if_none:'N/A' }}</td>
+                            <td>{{ pro.username|default_if_none:'N/A' }}</td>
+                            <td>{{ pro.email|default_if_none:'N/A' }}</td>
+                            <td>{{ pro.user_type|lower }}</td>
+                            <td>{{ pro.phone_number|default_if_none:'N/A' }}</td>
+                            <td>
+                              <div class="btn-group">
+                                <a href="{{ pro.get_absolute_url }}" class="btn green-bk-color">{{ _('update') }}</a>
+                                <a href="{{ pro.get_absoutle_url }}?action=delete&pk={{pro.id}}" class="btn btn-danger float-left"> {{ _('Delete') }} </a>
+                              </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>    
+            </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+{% endblock %}
+
+
+    
+{% block js %}
+    {% compress js %}
+        <!-- REQUIRED SCRIPTS -->
+        <script src="{% static 'htmx.min.js' %}"></script>
+        <!-- jQuery -->
+        <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+        <!-- Bootstrap 4 -->
+        <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- dataTable plugins -->
+        <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+        <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+        <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+
+        <!-- AdminLTE App -->
+        <script src="{% static 'js/adminlte.min.js' %}"></script>
+        <script>
+            $(function () {
+                $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+           });
+        </script>
+    {% endcompress %}
+    
+{% endblock %}
+    

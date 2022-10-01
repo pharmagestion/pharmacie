@@ -1,0 +1,133 @@
+{% extends "base.html" %} 
+{% load compress %}
+{% load static %}
+
+{% block css %} 
+    {% compress css %}
+            <link
+            rel="stylesheet"
+            href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}" 
+        />
+        <!-- Font Awesome Icons -->
+        <link
+            rel="stylesheet"
+            href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+        />
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}" />
+
+        <!-- custom styles -->
+        <link rel="stylesheet" href="{% static 'custom.css' %}" />
+    {% endcompress  %}
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper" id="target">
+    <div class="row" style="display: flex; justify-content: center;">
+      <div class="col-md-8 mt-3">
+        <form action="{{ user.get_absolute_url }}" 
+        method="post"
+        enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="card card-primary">
+              <div class="card-body">
+                <div class="form-group float-right">
+                  <div class="d-none">
+                    {{ form.picture }}
+                  </div>
+                  {% if user.picture %}
+                    <div id="upload-wrapper">
+                      <button type="button" class="invisible upload-btn btn green-bk-color position-absolute" style="top:3em; right:2.1em;">upload</button>
+                      <img id="profile-image" class="image d-block object-cover object-center img-circle elevation-2"  
+                          width="100" height="100" src="{{ user.picture.url }}" alt="Image"> 
+                    </div>
+                  {% else %}
+                    <div>
+                      <button type="button" class="invisible upload-btn btn green-bk-color position-absolute" style="top:3em; right:2.1em;">upload</button>
+                      <img id="profile-image" class="profile-image object-cover object-center img-circle elevation-2 image"  
+                      width="100" height="100" src="https://avatars.dicebear.com/api/initials/{{user.username}}.svg" alt="Image">
+                    </div>
+                  {% endif %}
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="row">
+                      <div class="col-md-6" >
+                        <div class="form-group">
+                          {{ form.username.label }}
+                          {{ form.username }}
+                          <span class="text-danger">{{ form.username.errors }}</span>
+                        </div>
+                        <div class="form-group">
+                          {{ form.first_name.label }}
+                          {{ form.first_name }}
+                          <span class="text-danger">{{ form.first_name.errors }}</span>
+                        </div>
+                        <div class="form-group">
+                          {{ form.last_name.label }}
+                          {{ form.last_name }}
+                          <span class="text-danger">{{ form.last_name.errors }}</span>
+                        </div>
+                      
+                        <div class="form-group">
+                          {{ form.birth_date.label }}
+                          {{ form.birth_date }}
+                          <span class="text-danger">{{ form.birth_date.errors }}</span>
+                        </div>
+                        <!-- <div class="form-group">
+                          {{ form.password.label }}
+                          {{ form.password }}
+                          <span class="text-danger">{{ form.password.errors }}</span>
+                        </div> -->
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              {{ form.email.label }}
+                              {{ form.email }}
+                              <span class="text-danger">{{ form.email.errors }}</span>
+                            </div>
+                            <div class="form-group">
+                              {{ form.phone_number.label }}
+                              {{ form.phone_number }}
+                              <span class="text-danger">{{ form.phone_number.errors }}</span>
+                            </div>
+              
+                            <div class="form-group">
+                              {{ form.user_type.label }}
+                              {{ form.user_type }}
+                              <span class="text-danger">{{ form.user_type.errors }}</span>
+                            </div>
+                            
+                            <div class="form-group">
+                              {{ form.address.label }}
+                              {{ form.address }}
+                              <span class="text-danger">{{ form.address.errors }}</span>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                  <button class="btn green-bk-color  float-right"> {{ _('Submit') }}</button>
+              </div>
+            </div>
+        </form>
+          <!-- /.card -->
+      </div>
+     
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+  {% compress js %}
+      <!-- REQUIRED SCRIPTS -->
+      <script src="{% static 'htmx.min.js' %}"></script>
+      <!-- jQuery -->
+      <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+      <!-- Bootstrap 4 -->
+      <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <!-- AdminLTE App -->
+      <script src="{% static 'js/adminlte.min.js' %}"></script>
+  {% endcompress %}
+{% endblock  %}
